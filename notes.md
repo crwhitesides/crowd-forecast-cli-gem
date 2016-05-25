@@ -1,7 +1,7 @@
 ## User types crowd-forecast
 
 - Show list of parks and current status of park
-- Ask user to select the park she's interested in
+- Ask user to select the park she's interested in *TODAY*
 
 ## User types park number
 
