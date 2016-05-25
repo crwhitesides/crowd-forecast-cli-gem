@@ -6,4 +6,5 @@
 ## User types park number
 
 - Show status of the park and forecast for the next five days
+- Show 2016 Crowd Calendar Updates
 - Ask if she'd like to see the list again or exit
