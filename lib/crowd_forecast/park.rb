@@ -2,16 +2,6 @@ class CrowdForecast::Park
   attr_accessor :name, :status
 
   def self.today
-    puts <<-DOC.gsub /^\s+/, ""
-    1. Disneyland Park - Yup, it's packed
-    2. Disney California Adventure - Hey, it's alright
-    3. Knott's Berry Farm - Ghost town
-    4. Six Flags - Ghost town
-    5. Universal Studios Hollywood - Hey, it's alright
-    6. Sea World - Hey, it's alright
-    7. Legoland - Hey, it's alright
-    DOC
-
     disneyland = self.new
     disneyland.name = "Disneyland Park"
     disneyland.status = "Yup, it's packed"
@@ -20,10 +10,45 @@ class CrowdForecast::Park
     dca.name = "Disney California Adventure"
     dca.status = "Hey, it's alright"
 
-    [disneyland, dca]
+    knotts = self.new
+    knotts.name = "Knott's Berry Farm"
+    knotts.status = "Ghost town"
+
+    six_flags = self.new
+    six_flags.name = "Six Flags"
+    six_flags.status = "Ghost town"
+
+    universal = self.new
+    universal.name = "Universal Studios Hollywood"
+    universal.status = "Hey, it's alright"
+
+    sea_world = self.new
+    sea_world.name = "Sea World"
+    sea_world.status = "Hey, it's alright"
+
+    legoland = self.new
+    legoland.name = "Legoland"
+    legoland.status = "Hey, it's alright"
+
+
+    [disneyland, dca, knotts, six_flags, universal, sea_world, legoland]
   end
 
-  def doc
+  def scrape_park_page
+    park_urls = [
+      "disneyland/", 
+      "dca-disney-california-adventure/",
+      "knotts-berry-farm/",
+      "six-flags-magic-mountain/",
+      "universal-studios-hollywood/",
+      "seaworld-san-diego/",
+      "legoland-california/"
+    ]
+
+  park_urls.each do |url|
+    doc = Nokogiri::
+  end
 
   end
+
 end
