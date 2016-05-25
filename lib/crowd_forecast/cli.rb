@@ -5,17 +5,7 @@ class CrowdForecast::CLI
   end
 
   def list_parks
-    puts <<-DOC.gsub /^\s+/, ""
-    1. Disneyland Park - Yup, it's packed
-    2. Disney California Adventure - Hey, it's alright
-    3. Knott's Berry Farm - Ghost town
-    4. Six Flags - Ghost town
-    5. Universal Studios Hollywood - Hey, it's alright
-    6. Sea World - Hey, it's alright
-    7. Legoland - Hey, it's alright
-    DOC
-
-    # @parks = CrowdForecast::Park.today
+    @parks = CrowdForecast::Park.today
   end
 
   def start
@@ -27,7 +17,7 @@ class CrowdForecast::CLI
     input = ""
 
     while input != "exit"
-      puts "Select a park to look at the forecast for the next five days." unless input == "exit"
+      puts "Enter 1-7 to look at the 5-day forecast of a park." unless input == "exit"
       input = gets.strip.downcase
 
       case input
@@ -48,11 +38,12 @@ class CrowdForecast::CLI
       when "list"
         list_parks
       else
-        puts <<-DOC.gsub /^\s+/, ""
+        other_result = <<-DOC.gsub /^\s+/, ""
         That's not a valid request.
         For a full list of parks enter "list"
         To exit, just enter "exit"
         DOC
+        puts other_result unless input == "list" || input == "exit"
       end
     end
     puts "See you soon!"
