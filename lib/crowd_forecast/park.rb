@@ -34,20 +34,32 @@ class CrowdForecast::Park
     [disneyland, dca, knotts, six_flags, universal, sea_world, legoland]
   end
 
-  def scrape_park_page
-    park_urls = [
-      "disneyland/", 
-      "dca-disney-california-adventure/",
-      "knotts-berry-farm/",
-      "six-flags-magic-mountain/",
-      "universal-studios-hollywood/",
-      "seaworld-san-diego/",
-      "legoland-california/"
-    ]
+  def self.scrape_park_page
+    # park_urls = [
+    #   "disneyland/", 
+    #   "dca-disney-california-adventure/",
+    #   "knotts-berry-farm/",
+    #   "six-flags-magic-mountain/",
+    #   "universal-studios-hollywood/",
+    #   "seaworld-san-diego/",
+    #   "legoland-california/"
+    # ]
 
-  park_urls.each do |url|
-    doc = Nokogiri::
-  end
+    # name = doc.css('h1.page-title').text.gsub(' Crowd Tracker', '')
+    # status_text_color = doc.css('div.entry-content div a.button')[0].attr('style').include?("color:#fff")
+    # status = doc.css('div.entry-content div a.button').children.text
+
+    doc = Nokogiri::HTML(open("http://www.isitpacked.com/live-crowd-trackers/disneyland/"))
+    name = doc.css('h1.page-title').text.gsub(' Crowd Tracker', '')
+    status_options = doc.css('div.entry-content div a.button')
+    current_status = ""
+
+    status_options.map do |status|
+      if status.attr('style').include?("color:#fff")
+        current_status = status.children.text
+      end
+    end
+    binding.pry
 
   end
 
