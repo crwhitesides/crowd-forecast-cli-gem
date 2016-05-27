@@ -1,5 +1,5 @@
 class CrowdForecast::Park
-  attr_accessor :name, :current_status
+  attr_accessor :name, :current_status, :next_5_days
 
   def self.today
     self.scrape_parks
@@ -23,7 +23,7 @@ class CrowdForecast::Park
         park = self.new
         park.name = doc.css('h1.page-title').text.gsub(' Crowd Tracker', '')
         park.current_status = ""
-        # park.5_day_forecast = []
+        park.next_5_days = self.scrape_5_day_forecast(slug)
 
         status_options = doc.css('div.entry-content div a.button')
         status_options.each do |status|
@@ -35,10 +35,18 @@ class CrowdForecast::Park
     end
   end
 
-  def self.scrape_5_day_forecast
-    doc = Nokogiri::HTML(open("http://www.isitpacked.com/live-crowd-trackers/disneyland/"))
+  def self.scrape_5_day_forecast(slug)
+    doc = Nokogiri::HTML(open("http://www.isitpacked.com/live-crowd-trackers/" + slug))
 
-    binding.pry
+    crowd_forecast_list = doc.css('.supe-item-holder div.rhc-widget-upcoming-item')
+
+    next_5_days = crowd_forecast_list.map.with_index do |day, i|
+        month = crowd_forecast_list[i].css('.rhc-date-month-year').text
+        day = crowd_forecast_list[i].css('.rhc-date-day').text
+        status = crowd_forecast_list[i].css('.rhc-widget-upcoming-title a').text
+        "#{month} #{day} -.- #{status}"
+    end
+    next_5_days
   end
 
 end
