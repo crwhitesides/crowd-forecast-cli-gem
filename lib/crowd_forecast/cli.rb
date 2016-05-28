@@ -1,15 +1,33 @@
 class CrowdForecast::CLI
 
-  def run
+  def call
     start
   end
 
   def list_parks
     @parks = CrowdForecast::Park.today
     @parks.each.with_index(1) do |park, i|
-      puts "#{i}. #{park.name} - #{park.status}"
+      puts "#{i}. #{park.name} - #{park.current_status}"
     end
   end
+
+
+  def wrap(s, width=78)
+    s.gsub(/(.{1,#{width}})(\s+|\Z)/, "\\1\n")
+  end
+
+   def print_park(park_number)
+    puts "*------------* #{@parks[park_number-1].name} *------------*"
+    puts ""
+    puts "            Five-Day Forecast            "
+    @parks[park_number-1].next_5_days.each do |d|
+      puts "       " + d + "       "
+    end
+    puts""
+    puts ""
+    puts "#{@parks[park_number-1].calendar_notes}"
+
+   end
 
   def start
     puts "How packed are the parks today? Let's see:"
@@ -25,7 +43,7 @@ class CrowdForecast::CLI
 
       case input
       when "1"
-        puts "Disneland 5-day forecast"
+        print_park(input.to_i)
       when "2"
         puts "DCA 5-day forecast"
       when "3"
