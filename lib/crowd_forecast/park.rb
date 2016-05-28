@@ -58,7 +58,6 @@ class CrowdForecast::Park
       doc = Nokogiri::HTML(open("http://www.isitpacked.com/crowd-calendars/" + slug))
     end
     doc.css('div#aone p').text
-    binding.pry
   end
 
 end

@@ -26,7 +26,7 @@ class CrowdForecast::CLI
     puts""
     puts ""
     puts "#{@parks[park_number-1].calendar_notes}"
-
+    puts ""
    end
 
   def start
@@ -45,17 +45,17 @@ class CrowdForecast::CLI
       when "1"
         print_park(input.to_i)
       when "2"
-        puts "DCA 5-day forecast"
+        print_park(input.to_i)
       when "3"
-        puts "Knott's 5-day forecast"
+        print_park(input.to_i)
       when "4"
-        puts "Six Flag's 5-day forecast"
+        print_park(input.to_i)
       when "5"
-        puts "Universal's 5-day forecast"
+        print_park(input.to_i)
       when "6"
-        puts "Sea World's 5-day forecast"
+        print_park(input.to_i)
       when "7"
-        puts "Legoland's 5-day forecast"
+        print_park(input.to_i)
       when "list"
         list_parks
       else
