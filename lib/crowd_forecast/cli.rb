@@ -11,18 +11,6 @@ class CrowdForecast::CLI
     end
   end
 
-
-  def print_park(park_number)
-    puts "*------------* #{@parks[park_number-1].name} *------------*"
-    puts ""
-    puts "            Five-Day Forecast            "
-    print_5_day_forecast(park_number)
-    puts ""
-    puts ""
-    print_calendar_notes(park_number)
-    puts ""
-  end
-
   def print_5_day_forecast(park_number) 
     if @parks[park_number-1].next_5_days.empty?
       puts "        Information not available.        "
@@ -43,11 +31,23 @@ class CrowdForecast::CLI
     end
   end
 
+  def print_park(park_number)
+    puts "*------------* #{@parks[park_number-1].name} *------------*"
+    puts ""
+    puts "            Five-Day Forecast            "
+    print_5_day_forecast(park_number)
+    puts ""
+    puts ""
+    print_calendar_notes(park_number)
+    puts ""
+  end
+
+
+
   def start
     puts "How packed are the parks today? Let's see:"
     puts  ""
     list_parks
-    puts "" 
     
     input = ""
 
@@ -57,22 +57,9 @@ class CrowdForecast::CLI
       puts ""
       puts ""
 
-      case input
-      when "1"
+      if (1..7).include?(input.to_i)
         print_park(input.to_i)
-      when "2"
-        print_park(input.to_i)
-      when "3"
-        print_park(input.to_i)
-      when "4"
-        print_park(input.to_i)
-      when "5"
-        print_park(input.to_i)
-      when "6"
-        print_park(input.to_i)
-      when "7"
-        print_park(input.to_i)
-      when "list"
+      elsif input == "list"
         list_parks
       else
         other_result = <<-DOC.gsub /^\s+/, ""
