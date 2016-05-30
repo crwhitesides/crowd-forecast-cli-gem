@@ -12,21 +12,31 @@ class CrowdForecast::CLI
   end
 
 
-  def wrap(s, width=78)
-    s.gsub(/(.{1,#{width}})(\s+|\Z)/, "\\1\n")
-  end
-
    def print_park(park_number)
     puts "*------------* #{@parks[park_number-1].name} *------------*"
     puts ""
-    puts "            Five-Day Forecast            "
-    @parks[park_number-1].next_5_days.each do |d|
-      puts "       " + d + "       "
-    end
+    print_5_day_forecast(park_number)
     puts""
     puts ""
     puts "#{@parks[park_number-1].calendar_notes}"
     puts ""
+   end
+
+   def print_5_day_forecast(park_number)  
+    @parks[park_number-1].next_5_days.each do |d|
+      header = "            Five-Day Forecast            "
+      if d.length < 7
+        header = "A 5-day forecast isn't available for this park."
+        puts header
+      else
+        puts header
+        puts "       " + d + "       "
+      end
+    end
+   end
+
+   def print_calendar_notes(park_number)
+
    end
 
   def start
