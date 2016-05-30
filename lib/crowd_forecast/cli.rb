@@ -12,32 +12,36 @@ class CrowdForecast::CLI
   end
 
 
-   def print_park(park_number)
+  def print_park(park_number)
     puts "*------------* #{@parks[park_number-1].name} *------------*"
     puts ""
+    puts "            Five-Day Forecast            "
     print_5_day_forecast(park_number)
-    puts""
     puts ""
-    puts "#{@parks[park_number-1].calendar_notes}"
     puts ""
-   end
+    print_calendar_notes(park_number)
+    puts ""
+  end
 
-   def print_5_day_forecast(park_number)  
-    @parks[park_number-1].next_5_days.each do |d|
-      header = "            Five-Day Forecast            "
-      if d.length < 7
-        header = "A 5-day forecast isn't available for this park."
-        puts header
-      else
-        puts header
+  def print_5_day_forecast(park_number) 
+    if @parks[park_number-1].next_5_days.empty?
+      puts "        Information not available.        "
+    else
+      @parks[park_number-1].next_5_days.each do |d|
         puts "       " + d + "       "
       end
     end
-   end
+  end
 
-   def print_calendar_notes(park_number)
-
-   end
+  def print_calendar_notes(park_number)
+    if @parks[park_number-1].calendar_notes == ""
+      puts "There are no major calendar items to plan around."
+    else
+      puts "* Important Calendar Items To Keep In Mind *"
+      puts ""
+      puts "#{@parks[park_number-1].calendar_notes}"
+    end
+  end
 
   def start
     puts "How packed are the parks today? Let's see:"
@@ -50,6 +54,8 @@ class CrowdForecast::CLI
     while input != "exit"
       puts "Enter 1-7 to look at the 5-day forecast of a park." unless input == "exit"
       input = gets.strip.downcase
+      puts ""
+      puts ""
 
       case input
       when "1"

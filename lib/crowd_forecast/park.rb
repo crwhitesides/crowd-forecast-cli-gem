@@ -17,7 +17,7 @@ class CrowdForecast::Park
     "legoland-california/"
     ]
 
-    park_urls.map do |slug|
+    instances = park_urls.map do |slug|
       doc = Nokogiri::HTML(open("http://www.isitpacked.com/live-crowd-trackers/" + slug))
 
       park = self.new
@@ -34,6 +34,7 @@ class CrowdForecast::Park
       end
       park
     end
+    instances
   end
 
   def self.scrape_5_day_forecast(slug)
@@ -57,7 +58,7 @@ class CrowdForecast::Park
     else
       doc = Nokogiri::HTML(open("http://www.isitpacked.com/crowd-calendars/" + slug))
     end
-    doc.css('div#aone p').text
+    doc.css('div#aone p').text.gsub(/For real.+Tracker./, "")
   end
 
 end
