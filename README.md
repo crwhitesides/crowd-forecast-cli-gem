@@ -8,7 +8,7 @@ This Ruby gem provides a CLI to view crowd levels at some of the most popular th
 
 ## Usage
 
-Run: ```crowd-forecast``` afters installing gem.
+Run: ```crowd-forecast``` after installing gem.
 
 ## Development
 
