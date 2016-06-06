@@ -33,13 +33,12 @@ class CrowdForecast::Scraper
 
   def self.scrape_5_day_forecast(slug)
     doc = Nokogiri::HTML(open("http://www.isitpacked.com/live-crowd-trackers/" + slug))
+    crowd_forecast_info = doc.css('.supe-item-holder div.rhc-widget-upcoming-item')
 
-    crowd_forecast_list = doc.css('.supe-item-holder div.rhc-widget-upcoming-item')
-
-    next_5_days = crowd_forecast_list.map.with_index do |day, i|
-      month = crowd_forecast_list[i].css('.rhc-date-month-year').text
-      day = crowd_forecast_list[i].css('.rhc-date-day').text
-      status = crowd_forecast_list[i].css('.rhc-widget-upcoming-title a').text
+    next_5_days = crowd_forecast_info.map.with_index do |day, i|
+      month = crowd_forecast_info[i].css('.rhc-date-month-year').text
+      day = crowd_forecast_info[i].css('.rhc-date-day').text
+      status = crowd_forecast_info[i].css('.rhc-widget-upcoming-title a').text
       "#{month} #{day} -.- #{status}"
     end
     next_5_days

@@ -48,15 +48,14 @@ class CrowdForecast::CLI
     puts  ""
     list_parks
     
-    input = ""
+    input = nil
 
     while input != "exit"
-      puts "Enter 1-7 to look at the 5-day forecast of a park." unless input == "exit"
+      puts "Enter 1-7 to look at the 5-day forecast of a park." 
       input = gets.strip.downcase
+      puts ""
 
       park = CrowdForecast::Park.find(input.to_i)
-      puts ""
-      puts ""
 
       if (1..7).include?(input.to_i)
         print_park(park)
@@ -64,9 +63,8 @@ class CrowdForecast::CLI
         list_parks
       else
         other_result = <<-DOC.gsub /^\s+/, ""
-        That's not a valid request.
-        For a full list of parks enter "list"
-        To exit enter "exit"
+        For a full list of parks enter "list".
+        To exit the program enter "exit".
         DOC
         puts other_result unless input == "list" || input == "exit"
       end
