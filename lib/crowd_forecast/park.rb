@@ -1,8 +1,10 @@
 class CrowdForecast::Park
   attr_accessor :name, :current_status, :next_5_days, :calendar_notes
 
-  def self.today
-    self.scrape_parks
+  # @@all = []
+
+  def self.all
+    @@all ||= scrape_parks
   end
 
 

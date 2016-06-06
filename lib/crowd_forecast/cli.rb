@@ -5,7 +5,7 @@ class CrowdForecast::CLI
   end
 
   def list_parks
-    @parks = CrowdForecast::Park.today
+    CrowdForecast::Park.all
     @parks.each.with_index(1) do |park, i|
       puts "#{i}. #{park.name} - #{park.current_status}"
     end

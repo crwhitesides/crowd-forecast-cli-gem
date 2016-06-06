@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "crowd_forecast"
+require_relative "../lib/crowd_forecast.rb"
 
 CrowdForecast::CLI.new.call
